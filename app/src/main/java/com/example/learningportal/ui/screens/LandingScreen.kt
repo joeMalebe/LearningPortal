@@ -1,6 +1,7 @@
 package com.example.learningportal.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.learningportal.R
+import com.example.learningportal.navigation.NavigationItem
 import com.example.learningportal.ui.theme.LearningPortalTheme
 
 @Composable
@@ -70,11 +72,13 @@ fun LandingScreen(
             Image(
                 bitmap = ImageBitmap.imageResource(R.drawable.today),
                 contentDescription = "Today",
-                modifier = Modifier.size(width = 200.dp, height = 80.dp)
+                modifier = Modifier
+                    .size(width = 200.dp, height = 80.dp)
+                    .clickable {
+                        navHostController.navigate(NavigationItem.Dashboard.route)
+                    }
             )
-
         }
-
     }
 }
 

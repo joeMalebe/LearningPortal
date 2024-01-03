@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.learningportal.navigation.AppNavHost
 import com.example.learningportal.ui.screens.LandingScreen
 import com.example.learningportal.ui.theme.LearningPortalTheme
 
@@ -22,22 +23,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LandingScreen()
+                    AppNavHost()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    LandingScreen()
-}
-
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun LandingScreenPreview() {
     LearningPortalTheme {
-        Greeting("Android")
+        LandingScreen()
     }
 }
