@@ -1,4 +1,6 @@
-package com.example.learningportal
+package com.example.learningportal.data
+
+import com.example.learningportal.R
 
 data class CourseCategory(val id: Int, val name: String, val image: Int, val backgroundColor: Int = 0) {
     companion object {

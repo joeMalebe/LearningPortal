@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,13 +25,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.learningportal.CourseCategory
+import com.example.learningportal.data.CourseCategory
 import com.example.learningportal.R
+import com.example.learningportal.data.Course
 import com.example.learningportal.ui.theme.LearningPortalTheme
 
 @Composable
@@ -39,9 +42,11 @@ fun DashboardScreen(
     categoryList: List<CourseCategory> = CourseCategory.getCourseCategories()
 ) {
 
-    Column(modifier = Modifier
-        .padding(16.dp)
-        .fillMaxWidth()) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
         UserProfilePic(modifier = Modifier.wrapContentHeight())
         Text(
             text = stringResource(id = R.string.what_would_you_like),
@@ -59,6 +64,8 @@ fun DashboardScreen(
                 CategoryItem(categoryList[it])
             }
         }
+
+        PopularCourses()
     }
 }
 
@@ -128,5 +135,86 @@ fun DashboardScreenPreview() {
 fun CategoryItemPreview() {
     LearningPortalTheme {
         CategoryItem(CourseCategory.getCourseCategories()[2])
+    }
+}
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+fun PopularCoursesPreview() {
+    LearningPortalTheme {
+        PopularCourses()
+    }
+}
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+fun CoursePreview() {
+    LearningPortalTheme {
+        Course()
+    }
+}
+
+@Composable
+fun PopularCourses(course: Course = Course.getCourses()[0]) {
+    Column(modifier = Modifier.padding(top = 16.dp)) {
+
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.popular_courses),
+                style = MaterialTheme.typography.headlineMedium
+            )
+
+            Text(
+                text = stringResource(id = R.string.see_all),
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
+        Course(course)
+    }
+}
+
+@Composable
+fun Course(course: Course = Course.getCourses()[0]) {
+    Card {
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+
+
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .weight(1f)
+            ) {
+                Text(
+                    text = course.name,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+
+                Text(
+                    text = course.price,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Image(
+                ImageBitmap.imageResource(course.image),
+                contentDescription = course.name,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(16.dp)
+            )
+        }
     }
 }
