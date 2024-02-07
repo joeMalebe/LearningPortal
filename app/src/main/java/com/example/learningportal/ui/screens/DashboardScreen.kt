@@ -226,7 +226,7 @@ fun PopularCourses(course: Course = Course.getCourses()[0]) {
 }
 
 @Composable
-fun Course(course: Course = Course.getCourses()[0]) {
+private fun Course(course: Course = Course.getCourses()[0]) {
     Box(
         modifier = Modifier
             .padding(bottom = 16.dp)
