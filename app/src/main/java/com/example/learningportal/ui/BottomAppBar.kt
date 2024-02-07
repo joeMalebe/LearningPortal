@@ -1,11 +1,11 @@
 package com.example.learningportal.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -32,12 +32,17 @@ fun MyBottomAppBar(
     tonalElevation: Dp = BottomAppBarDefaults.ContainerElevation,
     contentPadding: PaddingValues = BottomAppBarDefaults.ContentPadding,
     windowInsets: WindowInsets = BottomAppBarDefaults.windowInsets,
-    content: @Composable RowScope.() -> Unit
+    shadowElevation: Dp = 0.dp,
+    border: BorderStroke= BorderStroke(0.dp, Color.Transparent),
+    content: @Composable (RowScope.() -> Unit),
 ) {
     Surface(
         color = containerColor,
         contentColor = contentColor,
         tonalElevation = tonalElevation,
+        shadowElevation = shadowElevation,
+        border = border,
+
         //shape = ShapeKeyTokens.CornerNone,
         modifier = modifier
     ) {

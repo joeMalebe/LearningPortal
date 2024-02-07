@@ -1,7 +1,9 @@
 package com.example.learningportal.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +21,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,6 +32,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -47,6 +49,7 @@ import com.example.learningportal.R
 import com.example.learningportal.data.Course
 import com.example.learningportal.data.CourseCategory
 import com.example.learningportal.ui.MyBottomAppBar
+import com.example.learningportal.ui.theme.Cream
 import com.example.learningportal.ui.theme.LearningPortalTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,51 +58,59 @@ fun DashboardScreen(
     navHostController: NavHostController = rememberNavController(),
     categoryList: List<CourseCategory> = CourseCategory.getCourseCategories()
 ) {
-val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
-    Scaffold(bottomBar = {
-        MyBottomAppBar(
-            contentPadding = PaddingValues(0.dp),
-            contentColor = Color.Gray,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(24.dp))
+    Scaffold(
+        bottomBar = {
+            MyBottomAppBar(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(22.dp))
+                    .padding(8.dp),
 
-        ) {
+                containerColor = Color.White,
+                contentColor = Color.Gray,
+                contentPadding = PaddingValues(0.dp),
+                shadowElevation = 36.dp,
 
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    ImageBitmap.imageResource(R.drawable.bottom_btn1),
-                    contentDescription = "Home",
-                    modifier = Modifier.wrapContentSize()
-                )
-            }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    ImageBitmap.imageResource(R.drawable.bottom_btn2),
-                    contentDescription = "Wallet",
-                    modifier = Modifier.wrapContentSize()
-                )
-            }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    ImageBitmap.imageResource(R.drawable.bottom_btn3),
-                    contentDescription = "Profile",
-                    modifier = Modifier.wrapContentSize()
-                )
-            }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    ImageBitmap.imageResource(R.drawable.bottom_btn4),
-                    contentDescription = "Settings",
-                    modifier = Modifier.wrapContentSize()
-                )
-            }
+                content = {
 
-        }
-    }, modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            ImageBitmap.imageResource(R.drawable.bottom_btn1),
+                            contentDescription = "Home",
+                            modifier = Modifier.wrapContentSize()
+                        )
+                    }
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            ImageBitmap.imageResource(R.drawable.bottom_btn2),
+                            contentDescription = "Wallet",
+                            modifier = Modifier.wrapContentSize()
+                        )
+                    }
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            ImageBitmap.imageResource(R.drawable.bottom_btn3),
+                            contentDescription = "Profile",
+                            modifier = Modifier.wrapContentSize()
+                        )
+                    }
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(
+                            ImageBitmap.imageResource(R.drawable.bottom_btn4),
+                            contentDescription = "Settings",
+                            modifier = Modifier.wrapContentSize()
+                        )
+                    }
+
+                },
+
+                )
+        }, modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
 
         Column(
             modifier = Modifier
@@ -118,13 +129,14 @@ val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(128.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.fillMaxWidth().heightIn(min = 200.dp, max = 410.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 200.dp, max = 410.dp)
             ) {
                 items(categoryList.size) {
                     CategoryItem(categoryList[it])
                 }
             }
-
             PopularCourses()
         }
     }
@@ -135,7 +147,7 @@ private fun CategoryItem(category: CourseCategory, modifier: Modifier = Modifier
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .padding(vertical = 16.dp)
+            .padding(vertical = 8.dp)
             .aspectRatio(1f)
             .background(
                 color = colorResource(id = category.backgroundColor),
@@ -162,7 +174,6 @@ private fun CategoryItem(category: CourseCategory, modifier: Modifier = Modifier
                 color = MaterialTheme.colorScheme.onPrimary
             )
         }
-
     }
 }
 
@@ -183,45 +194,14 @@ private fun UserProfilePic(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-@Preview(showBackground = true, showSystemUi = true,
-    device = "spec:width=411dp,height=891dp"
-)
-fun DashboardScreenPreview() {
-    LearningPortalTheme {
-        DashboardScreen()
-    }
-}
-
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun CategoryItemPreview() {
-    LearningPortalTheme {
-        CategoryItem(CourseCategory.getCourseCategories()[2])
-    }
-}
-
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun PopularCoursesPreview() {
-    LearningPortalTheme {
-        PopularCourses()
-    }
-}
-
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun CoursePreview() {
-    LearningPortalTheme {
-        Course()
-    }
-}
 
 @Composable
 fun PopularCourses(course: Course = Course.getCourses()[0]) {
-    Column(modifier = Modifier
-        .padding(top = 16.dp)
-        .verticalScroll(rememberScrollState())) {
+    Column(
+        modifier = Modifier
+            .padding(top = 16.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -247,8 +227,17 @@ fun PopularCourses(course: Course = Course.getCourses()[0]) {
 
 @Composable
 fun Course(course: Course = Course.getCourses()[0]) {
-    Card(modifier = Modifier
-        .padding(bottom = 16.dp)) {
+    Box(
+        modifier = Modifier
+            .padding(bottom = 16.dp)
+            .background(
+                shape = RoundedCornerShape(22.dp),
+                brush = Brush.horizontalGradient(listOf(Color.White, Cream), startX = 100f)
+            )
+            .border(border = BorderStroke(2.dp, Cream), shape = RoundedCornerShape(22.dp))
+            .clip(RoundedCornerShape(22.dp))
+    ) {
+
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
@@ -282,5 +271,41 @@ fun Course(course: Course = Course.getCourses()[0]) {
                     .padding(16.dp)
             )
         }
+    }
+}
+
+@Composable
+@Preview(
+    showBackground = true, showSystemUi = true,
+    device = "spec:width=411dp,height=891dp"
+)
+fun DashboardScreenPreview() {
+    LearningPortalTheme {
+        DashboardScreen()
+    }
+}
+
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+fun CategoryItemPreview() {
+    LearningPortalTheme {
+        CategoryItem(CourseCategory.getCourseCategories()[2])
+    }
+}
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+fun PopularCoursesPreview() {
+    LearningPortalTheme {
+        PopularCourses()
+    }
+}
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+fun CoursePreview() {
+    LearningPortalTheme {
+        Course()
     }
 }
