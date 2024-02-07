@@ -14,14 +14,19 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
-    )
-
-    ,
+    ),
     headlineLarge = TextStyle(
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
         lineHeight = 32.sp,
+        letterSpacing = 0.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = FontFamily.Serif,
+        fontWeight = FontWeight.Bold,
+        fontSize = 20.sp,
+        lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
 

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">LearningPortal</string>
     <string name="elevate">Elevate Your Learning Experience</string>
+    <string name="user_greeting">Hi, Alex</string>
+    <string name="what_would_you_like">What would you like to learn today?</string>
+    <string name="popular_courses">Popular Courses</string>
+    <string name="see_all">See all</string>
 </resources>
