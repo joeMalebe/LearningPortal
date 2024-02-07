@@ -75,28 +75,28 @@ fun DashboardScreen(
 
                 content = {
 
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { }) {
                         Icon(
                             ImageBitmap.imageResource(R.drawable.bottom_btn1),
                             contentDescription = "Home",
                             modifier = Modifier.wrapContentSize()
                         )
                     }
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {  }) {
                         Icon(
                             ImageBitmap.imageResource(R.drawable.bottom_btn2),
                             contentDescription = "Wallet",
                             modifier = Modifier.wrapContentSize()
                         )
                     }
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {  }) {
                         Icon(
                             ImageBitmap.imageResource(R.drawable.bottom_btn3),
                             contentDescription = "Profile",
                             modifier = Modifier.wrapContentSize()
                         )
                     }
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {  }) {
                         Icon(
                             ImageBitmap.imageResource(R.drawable.bottom_btn4),
                             contentDescription = "Settings",
