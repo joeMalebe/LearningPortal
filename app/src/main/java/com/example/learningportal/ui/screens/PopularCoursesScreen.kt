@@ -33,6 +33,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.learningportal.R
 import com.example.learningportal.data.Course
 import com.example.learningportal.ui.theme.LearningPortalTheme
@@ -40,7 +42,7 @@ import com.example.learningportal.ui.theme.LearningPortalTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PopularCoursesScreen() {
+fun PopularCoursesScreen(navHostController: NavHostController = rememberNavController()) {
     Scaffold(topBar = {
         TopAppBar(title = {
             Row(
@@ -48,7 +50,7 @@ fun PopularCoursesScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 OutlinedButton(
-                    onClick = { /*TODO*/ },
+                    onClick = { navHostController.navigateUp() },
                     shape = CircleShape,
                     modifier = Modifier.size(42.dp),
                     contentPadding = PaddingValues(10.dp)
@@ -97,7 +99,8 @@ private fun Course(course: Course = Course.getCourses()[0]) {
             Image(
                 bitmap = ImageBitmap.imageResource(course.backgroundImg),
                 contentDescription = "",
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Fit, modifier = Modifier
+                    .align(Alignment.CenterEnd)
             )
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -115,7 +118,7 @@ private fun Course(course: Course = Course.getCourses()[0]) {
                     Text(
                         text = course.name,
                         style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(bottom = 8.dp)
+                        modifier = Modifier.padding(bottom = 8.dp, end = 32.dp)
                     )
 
                     Text(

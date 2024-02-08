@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.learningportal.ui.screens.DashboardScreen
 import com.example.learningportal.ui.screens.LandingScreen
+import com.example.learningportal.ui.screens.PopularCoursesScreen
 
 @Composable
 fun AppNavHost(
@@ -26,6 +27,10 @@ fun AppNavHost(
 
         composable(NavigationItem.Dashboard.route) {
             DashboardScreen(navHostController = navHostController)
+        }
+
+        composable(NavigationItem.PopularCourse.route) {
+            PopularCoursesScreen(navHostController = navHostController)
         }
     }
 }

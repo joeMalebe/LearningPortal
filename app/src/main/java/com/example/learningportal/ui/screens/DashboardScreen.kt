@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -48,6 +50,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.learningportal.R
 import com.example.learningportal.data.Course
 import com.example.learningportal.data.CourseCategory
+import com.example.learningportal.navigation.NavigationItem
 import com.example.learningportal.ui.MyBottomAppBar
 import com.example.learningportal.ui.theme.Cream
 import com.example.learningportal.ui.theme.LearningPortalTheme
@@ -112,7 +115,7 @@ fun DashboardScreen(
             .padding(16.dp)
     ) {
 
-        Column(
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .padding(it)
                 .fillMaxWidth()
@@ -122,7 +125,6 @@ fun DashboardScreen(
             Text(
                 text = stringResource(id = R.string.what_would_you_like),
                 style = MaterialTheme.typography.headlineLarge,
-                modifier = Modifier.padding(top = 16.dp)
             )
             val category = CourseCategory.getCourseCategories().first()
 
@@ -131,13 +133,13 @@ fun DashboardScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 200.dp, max = 410.dp)
+                    .heightIn(min = 200.dp, max = 380.dp)
             ) {
                 items(categoryList.size) {
                     CategoryItem(categoryList[it])
                 }
             }
-            PopularCourses()
+            PopularCourses { navHostController.navigate(NavigationItem.PopularCourse.route) }
         }
     }
 }
@@ -147,10 +149,10 @@ private fun CategoryItem(category: CourseCategory, modifier: Modifier = Modifier
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .padding(vertical = 8.dp)
+            .padding(vertical = 4.dp)
             .aspectRatio(1f)
             .background(
-                color = colorResource(id = category.backgroundColor),
+                color =  category.backgroundColor,
                 shape = RoundedCornerShape(32.dp)
             )
     ) {
@@ -196,10 +198,9 @@ private fun UserProfilePic(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun PopularCourses(course: Course = Course.getCourses()[0]) {
+fun PopularCourses(modifier: Modifier = Modifier, course: Course = Course.getCourses()[0], seeAllClick: () -> Unit) {
     Column(
-        modifier = Modifier
-            .padding(top = 16.dp)
+        modifier = modifier
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -208,27 +209,30 @@ fun PopularCourses(course: Course = Course.getCourses()[0]) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 8.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.popular_courses),
                 style = MaterialTheme.typography.headlineMedium
             )
 
+            OutlinedButton(onClick = { /*TODO*/ }) {
+
             Text(
                 text = stringResource(id = R.string.see_all),
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge, modifier = Modifier.clickable { seeAllClick() }
             )
+            }
         }
 
-        Course(course)
+        Course(course =  course)
     }
 }
 
 @Composable
-private fun Course(course: Course = Course.getCourses()[0]) {
+private fun Course( modifier: Modifier = Modifier, course: Course = Course.getCourses()[0]) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .padding(bottom = 16.dp)
             .background(
                 shape = RoundedCornerShape(22.dp),
@@ -298,7 +302,7 @@ fun CategoryItemPreview() {
 @Preview(showBackground = true, showSystemUi = true)
 fun PopularCoursesPreview() {
     LearningPortalTheme {
-        PopularCourses()
+        PopularCourses {}
     }
 }
 
