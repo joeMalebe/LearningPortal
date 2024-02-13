@@ -61,7 +61,7 @@ fun LearningPortalTheme(
             window.statusBarColor = if (darkTheme) {
                 Color.Transparent.toArgb()
             } else {
-                    Gray.toArgb()
+                Color.Transparent.toArgb()
             }
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
