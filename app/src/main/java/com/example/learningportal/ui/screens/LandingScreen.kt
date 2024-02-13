@@ -1,18 +1,25 @@
 package com.example.learningportal.ui.screens
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
@@ -24,14 +31,33 @@ import androidx.navigation.compose.rememberNavController
 import com.example.learningportal.R
 import com.example.learningportal.navigation.NavigationItem
 import com.example.learningportal.ui.theme.LearningPortalTheme
+import kotlinx.coroutines.time.delay
+import java.time.Duration
 
 @Composable
-fun LandingScreen(
+fun SplashScreen(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController = rememberNavController()
+    alphaAnimation: Animatable<Float, AnimationVector1D> = remember {
+        Animatable(0f)
+    },
+    navHostController: NavHostController = rememberNavController(),
+    startApp:() -> Unit
 ) {
 
-    Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+    LaunchedEffect(alphaAnimation) {
+
+        alphaAnimation.animateTo(
+        targetValue = 1f,
+        animationSpec = androidx.compose.animation.core.tween(
+            durationMillis = 1000, easing = FastOutLinearInEasing
+        ))
+        delay(Duration.ofMillis(500))
+        startApp()
+    }
+
+    Box(modifier = modifier
+        .fillMaxSize()
+        .alpha(alphaAnimation.value), contentAlignment = Alignment.Center) {
         Image(
             ImageBitmap.imageResource(R.drawable.top_tight),
             contentDescription = "Top Right",
@@ -86,6 +112,6 @@ fun LandingScreen(
 @Composable
 fun LandingScreenPreview() {
     LearningPortalTheme {
-        LandingScreen()
+        SplashScreen(startApp = {})
     }
 }

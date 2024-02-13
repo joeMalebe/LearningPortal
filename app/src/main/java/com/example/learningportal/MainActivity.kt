@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.learningportal.navigation.AppNavHost
-import com.example.learningportal.ui.screens.LandingScreen
+import com.example.learningportal.ui.screens.SplashScreen
 import com.example.learningportal.ui.theme.LearningPortalTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +34,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun LandingScreenPreview() {
     LearningPortalTheme {
-        LandingScreen()
+        SplashScreen(startApp = {})
     }
 }
